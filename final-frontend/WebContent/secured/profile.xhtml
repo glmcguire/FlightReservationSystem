@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<title>Profile</title>
+<h:body>
+	<p:layout>
+		<p:layoutUnit position="north">
+			<p:layout>
+				<p:layoutUnit position="north">
+					<h:form>
+						<p:toolbar>
+							<f:facet name="left">
+								<p:panelGrid columns="6">
+									<p:commandButton action="#{navigationBean.book()}"
+										value="Book Flights" />
+								</p:panelGrid>
+							</f:facet>
+							<f:facet name="right">
+								<p:panel rendered="#{authenticationBean.loggedIn}">
+									<h:outputText value="Welcome, " />
+									<p:commandLink value="#{authenticationBean.user.username}"
+										action="#{navBean.profile()}" />
+									<p:commandButton action="#{authenticationBean.logout()}"
+										value="Logout" />
+								</p:panel>
+							</f:facet>
+						</p:toolbar>
+					</h:form>
+
+				</p:layoutUnit>
+				<p:layoutUnit position="west" size="300">
+					<h:form>
+						<h:panelGrid columns="2">
+
+							<p:outputLabel for="username" value="Username:" />
+							<h:outputText id="username" value="#{profileBean.user.username}" />
+
+							<p:outputLabel for="firstName" value="First Name:" />
+							<h:outputText id="firstName"
+								value="#{profileBean.user.firstName}" />
+
+							<p:outputLabel for="lastName" value="Last Name:" />
+							<h:outputText id="lastName" value="#{profileBean.user.lastName}" />
+
+							<p:outputLabel for="street" value="Street:" />
+							<h:outputText id="street" value="#{profileBean.user.street}" />
+
+							<p:outputLabel for="city" value="City:" />
+							<h:outputText id="city" value="#{profileBean.user.city}" />
+
+							<p:outputLabel for="state" value="State:" />
+							<h:outputText id="state" value="#{profileBean.user.state}" />
+
+							<p:outputLabel for="zip" value="Zip:" />
+							<h:outputText id="zip" value="#{profileBean.user.zip}" />
+							<br />
+							<p:commandButton action="#{navigationBean.update()}"
+								value="Update Profile" />
+
+						</h:panelGrid>
+
+					</h:form>
+
+
+
+				</p:layoutUnit>
+				<p:layoutUnit position="center">
+					...Placeholder...
+
+
+				</p:layoutUnit>
+			</p:layout>
+
+
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			Booked Flights
+			<p:panel>
+					<h:form>
+						<p:dataTable var="flight"
+							value="#{flightModelBean.getBookedFights()}"
+							selectionMode="single" scrollable="true" scrollHeight="400"
+							selection="#{flightModelBean.flight}" rowKey="#{flight.flightId}">
+							<f:facet name="header">
+           						 Book Flights
+        					</f:facet>
+
+							<p:column headerText="Flight Id">
+								<h:outputText value="#{flight.flightId}" />
+							</p:column>
+
+							<p:column headerText="Origin">
+								<h:outputText value="#{flight.origin.cityState}" />
+							</p:column>
+
+							<p:column headerText="Destination">
+								<h:outputText value="#{flight.destination.cityState}" />
+							</p:column>
+
+							<p:column headerText="Departure">
+								<h:outputText value="#{flight.departure}" />
+							</p:column>
+
+							<p:column headerText="ETA">
+								<h:outputText value="#{flight.eta}" />
+							</p:column>
+
+							<p:column headerText="Status">
+								<h:outputText value="#{flight.flightStatus}" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton process="@form" update="@form"
+									icon="ui-icon-cart" value="Delete Booking"
+									actionListener="#{bookingDao.deleteDeleteBooking(flight.Id)}"
+									rendered="#{authenticationBean.loggedIn}" />
+							</f:facet>
+						</p:dataTable>
+					</h:form>
+				</p:panel>
+
+
+		</p:layoutUnit>
+
+
+
+	</p:layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</h:body>
+</html>

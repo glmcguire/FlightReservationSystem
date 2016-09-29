@@ -1,0 +1,5 @@
+	@XmlTransient
+	private String cityState;
+	public String getCityState(){
+		return this.getCity() + ", " + this.getState();
+	}

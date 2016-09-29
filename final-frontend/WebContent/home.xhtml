@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<title>Book Flights</title>
+<h:body>
+
+	<h:form>
+		<p:layout>
+			<p:layoutUnit position="north">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:panelGrid columns="6" style="width: 110%">
+							<h:form>
+								<p:panel>
+									<p:outputLabel
+										value="Select Origin: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+										for="dd" />
+									<p:autoComplete id="dd" dropdown="true"
+										value="#{flightModelBean.txt1}"
+										completeMethod="#{flightModelBean.completeSearch()}" />
+								</p:panel>
+								<p:panel>
+									<p:outputLabel value="Select Destination: " for="aa" />
+									<p:autoComplete id="aa" dropdown="true"
+										value="#{flightModelBean.txt2}"
+										completeMethod="#{flightModelBean.completeSearch()}" />
+								</p:panel>
+
+								<p:commandButton action="#{flightModelBean.searchTrips()}"
+									value="Search for flights" process="@form" update="@all" />
+							</h:form>
+						</p:panelGrid>
+					</f:facet>
+					<f:facet name="right">
+						<p:panel rendered="#{authenticationBean.loggedIn}">
+							<h:outputText value="Welcome, " />
+							<p:commandLink value="#{authenticationBean.user.username}"
+								action="#{navigationBean.profile()}" />
+							<p:commandButton action="#{authenticationBean.logout()}"
+								value="Logout" />
+						</p:panel>
+
+						<p:panel rendered="#{!authenticationBean.loggedIn}">
+							<p:commandButton action="#{navigationBean.login()}" value="Login" />
+							<p:commandButton action="#{navigationBean.register()}"
+								value="Register" />
+						</p:panel>
+					</f:facet>
+				</p:toolbar>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<p:panel>
+					<h:form>
+						<p:dataTable var="flight"
+							value="#{flightModelBean.getFlightModel().flights}"
+							selectionMode="single" scrollable="true" scrollHeight="400"
+							selection="#{flightModelBean.flight}" rowKey="#{flight.flightId}">
+							<f:facet name="header">
+           						 Book Flights
+        					</f:facet>
+
+							<p:column headerText="Flight Id">
+								<h:outputText value="#{flight.flightId}" />
+							</p:column>
+
+							<p:column headerText="Origin">
+								<h:outputText value="#{flight.origin.cityState}" />
+							</p:column>
+
+							<p:column headerText="Destination">
+								<h:outputText value="#{flight.destination.cityState}" />
+							</p:column>
+
+							<p:column headerText="Departure">
+								<h:outputText value="#{flight.departure}" />
+							</p:column>
+
+							<p:column headerText="ETA">
+								<h:outputText value="#{flight.eta}" />
+							</p:column>
+
+							<p:column headerText="Status">
+								<h:outputText value="#{flight.flightStatus}" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton process="@form" update="@form"
+									icon="ui-icon-cart" value="Book Flight"
+									actionListener="#{flightModelBean.bookFlight(flight)}"
+									rendered="#{authenticationBean.loggedIn}" />
+							</f:facet>
+						</p:dataTable>
+					</h:form>
+				</p:panel>
+
+				<p:panel>
+					<h:form>
+						<ui:repeat var="flightModel" value="#{flightModelBean.listModels}">
+							<p:dataTable var="flight" value="#{flightModel.flights}"
+								scrollable="true" scrollHeight="100">
+								<f:facet name="header">
+           						 Book Flights
+        					</f:facet>
+
+								<p:column headerText="Flight Id">
+									<h:outputText value="#{flight.flightId}" />
+								</p:column>
+
+								<p:column headerText="Origin">
+									<h:outputText value="#{flight.origin.cityState}" />
+								</p:column>
+
+								<p:column headerText="Destination">
+									<h:outputText value="#{flight.destination.cityState}" />
+								</p:column>
+
+								<p:column headerText="Departure">
+									<h:outputText value="#{flight.departure}" />
+								</p:column>
+
+								<p:column headerText="ETA">
+									<h:outputText value="#{flight.eta}" />
+								</p:column>
+
+								<p:column headerText="Status">
+									<h:outputText value="#{flight.flightStatus}" />
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton process="@form" update="@form"
+										icon="ui-icon-cart" value="Book Flight"
+										actionListener="#{flightModelBean.bookFlight()}"
+										rendered="#{authenticationBean.loggedIn}" />
+								</f:facet>
+							</p:dataTable>
+						</ui:repeat>
+					</h:form>
+				</p:panel>
+
+
+			</p:layoutUnit>
+		</p:layout>
+	</h:form>
+</h:body>
+</html>

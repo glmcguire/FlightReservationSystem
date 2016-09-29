@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<title>Login</title>
+<h:body>
+			<h:form>
+				<p:panel>
+					<h:panelGrid columns="3">
+
+						<p:outputLabel for="username" value="username" />
+						<p:inputText id="username" type="username"
+							value="#{loginBean.user.username}" required="true" />
+						<p:message for="username" />
+
+						<p:outputLabel for="password" value="Password" />
+						<p:password id="password" value="#{loginBean.user.password}"
+							required="true" />
+						<p:message for="password" />
+
+					</h:panelGrid>
+
+					<f:facet name="footer">
+						<p:commandButton value="Login" validateClient="true"
+							process="@form" update="@form" action="#{loginBean.login()}" />
+						<p:commandButton action="#{navigationBean.register()}"
+							value="Register" />
+					</f:facet>
+				</p:panel>
+			</h:form>
+</h:body>
+</html>

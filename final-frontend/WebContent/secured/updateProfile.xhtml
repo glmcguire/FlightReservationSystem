@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<h:body>
+
+	<p:panel header="Update User Details">
+		<h:form>
+			<h:panelGrid columns="3" columnClasses="label, value">
+
+				<p:outputLabel for="username" value="Username: " />
+				<p:inputText id="username" value="#{registrationBean.auth.user.username}"
+					 />
+				<p:message for="username" />
+
+				<p:outputLabel for="password" value="Password:" />
+				<p:password id="password" value="#{registrationBean.auth.user.password}"
+					 />
+				<p:message for="password" />
+
+
+				<p:outputLabel for="email" value="Email:" />
+				<p:inputText id="email"
+					value="#{registrationBean.auth.user.email}">
+					<f:validator binding="#{emailValidator}" />
+				</p:inputText>
+				<p:message for="email" />
+
+
+				<p:outputLabel for="firstname" value="First Name:" />
+				<p:inputText id="firstname"
+					value="#{registrationBean.auth.user.firstName}" 
+					label="firstname" />
+				<p:message for="firstname" />
+
+				<p:outputLabel for="lastname" value="Last Name:" />
+				<p:inputText id="lastname" value="#{registrationBean.auth.user.lastName}"
+					 label="lastname" />
+				<p:message for="lastname" />
+
+
+				<p:outputLabel for="street" value="Street: " />
+				<p:inputText id="street" value="#{registrationBean.auth.user.street}"
+					 label="street" />
+				<p:message for="street" />
+
+				<p:outputLabel for="city" value="City:" />
+				<p:inputText id="city" value="#{registrationBean.auth.user.city}"
+					 label="city" />
+				<p:message for="city" />
+
+				<p:outputLabel for="state" value="State:" />
+				<p:inputText id="state" value="#{registrationBean.auth.user.state}"
+					 label="state" />
+				<p:message for="state" />
+
+				<p:outputLabel for="zip" value="Zip:" />
+				<p:inputText id="zip" value="#{registrationBean.auth.user.zip}"
+					 label="zip" />
+				<p:message for="zip" />
+
+
+			</h:panelGrid>
+
+			<p:commandButton value="Update"
+				action="#{registrationBean.update()}" validateClient="true"
+				process="@form" update="@form" />
+		</h:form>
+	</p:panel>
+
+
+</h:body>
+</html>

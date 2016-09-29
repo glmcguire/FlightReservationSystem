@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 5, 2015 6:04:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cooksys.backend.model.User" table="user" catalog="final_assessment" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="80" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="80" not-null="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="45" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="45" not-null="true" />
+        </property>
+        <property name="street" type="string">
+            <column name="street" length="45" not-null="true" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="45" not-null="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="45" not-null="true" />
+        </property>
+        <property name="zip" type="string">
+            <column name="zip" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
